@@ -10,6 +10,8 @@
 // - abspeichern
 
 #define _CRT_SECURE_NO_WARNINGS
+#include "CImg.h"
+using namespace cimg_library;
 #include <iostream>
 using namespace std;
 
