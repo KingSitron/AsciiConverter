@@ -1,0 +1,7 @@
+﻿  AsciiConverter.cpp
+C:\Users\simon\OneDrive\Desktop\Überarbeiten\ImageProcessing_Empty\AsciiConverter.cpp(18,26): warning C4129: "|": nicht erkannte Folge von Escapesequenz
+C:\Users\simon\OneDrive\Desktop\Überarbeiten\ImageProcessing_Empty\AsciiConverter.cpp(135,31): warning C4552: "+": Ergebnis des Ausdrucks nicht verwendet.
+C:\Users\simon\OneDrive\Desktop\Überarbeiten\ImageProcessing_Empty\AsciiConverter.cpp(136,32): warning C4552: "+": Ergebnis des Ausdrucks nicht verwendet.
+C:\Users\simon\OneDrive\Desktop\Überarbeiten\ImageProcessing_Empty\AsciiConverter.cpp(152,2): error C3861: "AusgabeArray": Bezeichner wurde nicht gefunden.
+C:\Users\simon\OneDrive\Desktop\Überarbeiten\ImageProcessing_Empty\AsciiConverter.cpp(206,22): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\simon\OneDrive\Desktop\Überarbeiten\ImageProcessing_Empty\AsciiConverter.cpp(208,23): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
