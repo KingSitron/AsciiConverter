@@ -10,6 +10,8 @@
 // - abspeichern
 
 #define _CRT_SECURE_NO_WARNINGS
+#include "CImg.h"
+using namespace cimg_library;
 #include <iostream>
 using namespace std;
 
@@ -18,6 +20,7 @@ const char PATTERN01[] = "@#%*+=-:. ";
 const char PATTERN02[] = "@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\" ^'. ";
 const unsigned short VALID_FILETYPE = 0x4d42;
 const unsigned short VALID_BITCOUNT = 8;
+const string = "Hallo hier ist eine Veränderung";
 
 
 
