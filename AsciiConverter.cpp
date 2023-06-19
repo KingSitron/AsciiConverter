@@ -75,6 +75,8 @@ bool ReadFile(string fn, BmpMetaData& img)
 	return true;
 }
 
+//Teständerung
+
 BmpMetaData DuplicateImage(BmpMetaData& img)
 {
 	BmpMetaData res = img;
