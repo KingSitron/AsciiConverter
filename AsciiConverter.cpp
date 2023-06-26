@@ -16,9 +16,11 @@ using namespace std;
 //Ascii Patterns
 const char PATTERN01[] = "@#%*+=-:. ";
 const char PATTERN02[] = "@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\" ^'. ";
+const int PATTERNSIZE02 = sizeof(PATTERN02) / sizeof(PATTERN02[0]);
 const unsigned short VALID_FILETYPE = 0x4d42;
 const unsigned short VALID_BITCOUNT = 8;
-const string = "Hallo hier ist eine Veränderung";
+const int TARGET_RATIO = 2;
+
 
 void AusgabeArray(int* array[], int width, int height);
 
@@ -119,26 +121,47 @@ void PutPixel(BmpMetaData& img, int x, int y, unsigned char value)
 	// Erstellen Sie hier ihren Code.
 	return;
 }
-
+int getAverage(int* eingabeMatrix[], int width, int height, int x, int y,int zoomWidth, int zoomHeight) {
+	float pixelPerCharWidth = float(width) / zoomWidth;
+	float pixelPerCharHeight = float(height) / zoomHeight;
+	float zoomFactorWidth = float(zoomWidth) / float(width);
+	float zoomFactorHeight = float(zoomHeight) / float(height);
+	int sum = 0;
+	int count = 0;
+	for (float x0=x* pixelPerCharWidth; x0 < pixelPerCharWidth* x + pixelPerCharWidth;x0 += zoomFactorWidth) {
+		for (float y0 = y * pixelPerCharHeight; y0 < pixelPerCharHeight* y + pixelPerCharHeight;y0 += zoomFactorHeight) {
+			sum += eingabeMatrix[int(x0)][int(y0)];
+				++count;
+		}
+	}
+	return sum/count;
+}
 void AppyOperator3x3(int* eingabeMatrix[], int width, int height)
 {
 	//width = width - width % 3; //Überschuss der eingabe Matrix an dieser abziehen 
 	//hight = hight - hight % 6;
-	cout << "Geben sie die gewuenschte Breite ein (in Pixeln): " << endl;
+	cout << "Geben sie die gewuenschte Breite ein (in Asciizeichen): " << endl;
 	int zoomWidth= 0;
 	cin >> zoomWidth;
 	
 
 
 	float zoomFactor = float(zoomWidth)/float(width);
-	int zoomHeight = height * zoomFactor;
+	int zoomHeight = (height * zoomFactor)/ TARGET_RATIO;
 
 	int** kompressMatrix = new int* [zoomWidth]; //Matrix für speicherung neuer Pixel werte
 
 	for (int i = 0; i < zoomWidth; ++i) {
-		kompressMatrix[i] = new int[zoomHeight/2];
+		kompressMatrix[i] = new int[zoomHeight];
 	}
-	int oldPixelToNewWidth = 1/zoomFactor;
+	for (int x = 0; x < zoomWidth; x++) { //Geht immer die einzelnen pixel im 3x6 feld druch
+		for (int y = 0; y <zoomHeight; y++) {
+
+			kompressMatrix[x][y] = getAverage(eingabeMatrix,width,height,x,y,zoomWidth,zoomHeight);
+
+		}
+	}
+	/*int oldPixelToNewWidth = 1 / zoomFactor;
 	int oldPixelToNewHeight = (1 / zoomFactor )* 2;
 	for (int i = 0; i < zoomWidth* zoomFactor; i+= oldPixelToNewWidth) { //Geht immer in dreierschitten durch in x Richtung 
 		for (int k = 0; k < zoomHeight* zoomFactor; k += oldPixelToNewHeight) { //Geht immer 6 pixel nach unten in y Richtung
@@ -156,7 +179,7 @@ void AppyOperator3x3(int* eingabeMatrix[], int width, int height)
 			kompressMatrix[(i / oldPixelToNewWidth)][(k / oldPixelToNewHeight)] = mittelwert / (oldPixelToNewWidth * oldPixelToNewHeight);
 
 		}
-	}
+	}*/
 	AusgabeArray(kompressMatrix, zoomWidth, zoomHeight);
 }
 
@@ -180,14 +203,20 @@ void GenerateAsciiArt(BmpMetaData& src, int numCols, int mode)
 	// Ihr Code hier ...
 
 }
+
+char IntToAscii(int value) {
+	return PATTERN02[value % (PATTERNSIZE02-1)];
+}
+
 void AusgabeArray(int* array[],int width,int height) {
 	for (int iy = height-1; iy >=0 ; --iy) {
 		for (int ix = 0; ix < width; ++ix) {
-			cout<< hex(array[ix][iy])<<" ";
+			cout<< IntToAscii(array[ix][iy]);
 		}
 		cout << endl;
 	}
 }
+
 
 int main()
 {
@@ -196,7 +225,7 @@ int main()
 	BmpMetaData sourceImg = { 0 };
 
 	// Datei lesen
-	if (!ReadFile("ZumEinlesen.bmp", sourceImg))
+	if (!ReadFile("Cat04_pretty.bmp", sourceImg))
 	{
 		cout << "Fehler beim Lesen der Eingangsdatei" << endl;
 		return -1;
