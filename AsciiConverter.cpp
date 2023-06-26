@@ -19,7 +19,7 @@ const char PATTERN02[] = "@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~
 const unsigned short VALID_FILETYPE = 0x4d42;
 const unsigned short VALID_BITCOUNT = 8;
 
-
+void AusgabeArray(int* array[], int width, int height);
 
 struct HexCharStruct
 {
@@ -75,6 +75,8 @@ bool ReadFile(string fn, BmpMetaData& img)
 	return true;
 }
 
+//Teständerung
+
 BmpMetaData DuplicateImage(BmpMetaData& img)
 {
 	BmpMetaData res = img;
@@ -117,39 +119,44 @@ void PutPixel(BmpMetaData& img, int x, int y, unsigned char value)
 	return;
 }
 
-void AppyOperator3x3(char* eingabeMatrix[], int width, int hight)
+void AppyOperator3x3(int* eingabeMatrix[], int width, int height)
 {
-	width = width - width % 3; //Überschuss der eingabe MAtrix an dieser abziehen 
-	hight = hight - hight % 6;
+	//width = width - width % 3; //Überschuss der eingabe Matrix an dieser abziehen 
+	//hight = hight - hight % 6;
+	cout << "Geben sie die gewuenschte Breite ein (in Pixeln): " << endl;
+	int zoomWidth= 0;
+	cin >> zoomWidth;
+	
 
-	char** kompressMatrix; //Matrix für speicherung neuer Pixel werte
-	char kompressX = width / 3; //Matrix größe 
-	char kompressY = hight / 6;
 
-	kompressMatrix = new char* [kompressX];
+	float zoomFactor = float(zoomWidth)/float(width);
+	int zoomHeight = height * zoomFactor;
 
-	for (int i = 0; i < kompressX; ++i) {
-		kompressMatrix[i] = new char[kompressY];
+	int** kompressMatrix = new int* [zoomWidth]; //Matrix für speicherung neuer Pixel werte
+
+	for (int i = 0; i < zoomWidth; ++i) {
+		kompressMatrix[i] = new int[zoomHeight/2];
 	}
-
-	for (int i = 0; i <= width; i+3) { //Geht immer in dreierschitten durch in x Richtung 
-		for (int k = 0; k <= hight; k+6) { //Geht immer 6 pixel nach unten in y Richtung
+	int oldPixelToNewWidth = 1/zoomFactor;
+	int oldPixelToNewHeight = (1 / zoomFactor )* 2;
+	for (int i = 0; i < zoomWidth* zoomFactor; i+= oldPixelToNewWidth) { //Geht immer in dreierschitten durch in x Richtung 
+		for (int k = 0; k < zoomHeight* zoomFactor; k += oldPixelToNewHeight) { //Geht immer 6 pixel nach unten in y Richtung
 
 			int mittelwert = 0; //Speicherung der Mittelwerte
 
-			for (int x = i; x < i + 4; x++) { //Geht immer die einzelnen pixel im 3x6 feld druch
-				for (int y = k; y < k + 7; y++) {
+			for (int x = i; x < i + oldPixelToNewWidth; x++) { //Geht immer die einzelnen pixel im 3x6 feld druch
+				for (int y = k; y < oldPixelToNewHeight; y++) {
 
 					mittelwert = mittelwert + eingabeMatrix[x][y];
 
 				}
 			}
 
-			kompressMatrix[i / 3][k / 6] = mittelwert / 18;
+			kompressMatrix[(i / oldPixelToNewWidth)][(k / oldPixelToNewHeight)] = mittelwert / (oldPixelToNewWidth * oldPixelToNewHeight);
 
 		}
 	}
-	AusgabeArray(kompressMatrix, kompressX, kompressY);
+	AusgabeArray(kompressMatrix, zoomWidth, zoomHeight);
 }
 
 
@@ -172,7 +179,7 @@ void GenerateAsciiArt(BmpMetaData& src, int numCols, int mode)
 	// Ihr Code hier ...
 
 }
-void AusgabeArray(char* array[],int width,int height) {
+void AusgabeArray(int* array[],int width,int height) {
 	for (int iy = height-1; iy >=0 ; --iy) {
 		for (int ix = 0; ix < width; ++ix) {
 			cout<< hex(array[ix][iy])<<" ";
@@ -188,7 +195,7 @@ int main()
 	BmpMetaData sourceImg = { 0 };
 
 	// Datei lesen
-	if (!ReadFile("ZumEinlesenUngleich.bmp", sourceImg))
+	if (!ReadFile("ZumEinlesen.bmp", sourceImg))
 	{
 		cout << "Fehler beim Lesen der Eingangsdatei" << endl;
 		return -1;
@@ -202,16 +209,16 @@ int main()
 	}
 	//Array zur Bilderzeugung
 	
-	char** array = new char* [sourceImg.Width];
+	int** array = new int* [sourceImg.Width];
 
 	for (int ix = 0; ix < sourceImg.Width; ++ix) {
-		array[ix] = new char[sourceImg.Height];
+		array[ix] = new int[sourceImg.Height];
 		for (int iy = 0; iy < sourceImg.Height; ++iy) {
 			array[ix][iy] = GetPixel(sourceImg, ix ,iy);
 		}
 	}
 
-	AusgabeArray(array, sourceImg.Width, sourceImg.Height);
+	//AusgabeArray(array, sourceImg.Width, sourceImg.Height);
 	AppyOperator3x3(array, sourceImg.Width, sourceImg.Height);
 
 
