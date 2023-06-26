@@ -18,6 +18,7 @@ const char PATTERN01[] = "@#%*+=-:. ";
 const char PATTERN02[] = "@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\" ^'. ";
 const unsigned short VALID_FILETYPE = 0x4d42;
 const unsigned short VALID_BITCOUNT = 8;
+const string = "Hallo hier ist eine Veränderung";
 
 void AusgabeArray(int* array[], int width, int height);
 
