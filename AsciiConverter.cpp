@@ -9,7 +9,7 @@
 //   siehe: https://www.geeksforgeeks.org/edge-detection-using-prewitt-scharr-and-sobel-operator/amp/
 // - abspeichern
 
-#define _CRT_SECURE_NO_WARNINGS
+//#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 using namespace std;
 
@@ -215,7 +215,7 @@ int main()
 	}
 
 	AusgabeArray(array, sourceImg.Width, sourceImg.Height);
-	AppyOperator3x3(array, sourceImg.Width, sourceImg.Height);
+	//AppyOperator3x3(array, sourceImg.Width, sourceImg.Height);
 
 
 
