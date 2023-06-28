@@ -1,6 +1,6 @@
 ﻿  AsciiConverter.cpp
-E:\Github\AsciiConverter\AsciiConverter.cpp(18,26): warning C4129: "|": nicht erkannte Folge von Escapesequenz
-E:\Github\AsciiConverter\AsciiConverter.cpp(150,17): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-E:\Github\AsciiConverter\AsciiConverter.cpp(244,22): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
-E:\Github\AsciiConverter\AsciiConverter.cpp(246,23): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+E:\Github\AsciiConverter\AsciiConverter.cpp(30,26): warning C4129: "|": nicht erkannte Folge von Escapesequenz
+E:\Github\AsciiConverter\AsciiConverter.cpp(145,17): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
+E:\Github\AsciiConverter\AsciiConverter.cpp(191,22): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+E:\Github\AsciiConverter\AsciiConverter.cpp(193,23): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
   ImageProcessing_Empty.vcxproj -> E:\Github\AsciiConverter\x64\Debug\ImageProcessing_Empty.exe
