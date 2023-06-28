@@ -17,7 +17,7 @@
 //   Durch eine Eingabe kann bestimmt werden wie groß das Bild ist, welches in der Ausgabe ausgegeben wird.
 //   (Je nach Font invertiert)
 // 
-// - Namen: Cedric Friedsch,Luis Geissler, Simon Grohnert
+// - Namen: Cedric Frietsch,Luis Geissler, Simon Grohnert
 // - Datum: 28.6.2023
 //
 
